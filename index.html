@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#0b111c" />
+<meta name="description" content="Touchscape translates photographs into editable tactile-inspired vector studies using on-device computer vision, depth estimation, and semantic segmentation." />
+<title>TOUCHSCAPE — Make images touchable.</title>
+<link rel="icon" type="image/svg+xml" href="assets/mark.svg" />
+<link rel="stylesheet" href="src/styles.css" />
+</head>
+<body>
+<div class="shell">
+<header class="topbar">
+ <a class="brand" href="#home" aria-label="Touchscape home"><span class="brandicon">✳</span><span>TOUCH<span class="brandlast">SCAPE</span></span><span class="brandtag">/ LAB 01</span></a>
+ <nav class="nav" aria-label="Main navigation"><a href="#studio">Studio</a><a href="#how">The technology</a><a href="#impact">Our mission</a></nav>
+ <a class="headercta" href="#studio">Open studio <span>↗</span></a>
+</header>
+<main>
+<section class="hero" id="home">
+ <div class="hero-left"><div class="eyebrow"><span class="pip"></span> IMAGE AI × ACCESSIBLE DESIGN <span class="eyebrownum">/ 2026</span></div>
+  <h1>What if you could <em>feel</em> a photograph?</h1>
+  <p class="herotext">An image holds an entire world. Touchscape uses on-device vision models to translate its shapes, depth, and meaning into a tactile-inspired draft you can refine for specialist printing.</p>
+  <div class="heroactions"><a class="primarycta" href="#studio">Make an image touchable <span>↗</span></a><a href="#how" class="textlink">Explore the method <span>↗</span></a></div>
+  <div class="trust"><div class="trustline"><span class="tealstar">✳</span> Real depth + segmentation models available</div><div class="trustline"><span class="tealstar">✳</span> Runs in your browser. No photo uploads.</div></div>
+ </div>
+ <div class="hero-right"><div class="hero-card"><div class="hero-card-header"><span class="cardlive"><span></span> FROM PIXELS TO PATTERNS</span><span>VISUAL EXPERIMENT / 001</span></div><div class="hero-image-grid"><div class="hero-img-before"><img src="assets/sample-coast.jpg" alt="Illustrated lighthouse beside a sea and sailboat" /></div><div class="hero-img-after" id="heroArt"><img src="assets/demo-tactile-preview.png" alt="Vector tactile sketch showing raised-line contours of the coastal scene" style="filter:none" /></div><div class="hero-divider"><span>↔</span></div></div><div class="hero-card-foot"><span>01 / ORIGINAL</span><span>02 / TRANSLATED</span></div></div><div class="hero-float">THE WORLD, REDRAWN <span class="spark">✳</span></div></div>
+</section>
+<section class="statsband" aria-label="Technology overview"><div><b>02</b><span>real AI vision models</span></div><div><b>100%</b><span>in-browser processing</span></div><div><b>SVG</b><span>editable vector output</span></div><div><b>∞</b><span>images to discover</span></div></section>
+<section class="studio-section" id="studio"><div class="section-top"><div><div class="kicker">THE STUDIO / VERSION 1.3</div><h2>From seeing <i>to feeling.</i></h2></div><p>Upload a scene. Let the AI discover its layers. Shape its tactile translation, then export a vector prototype.</p></div>
+<div class="workspace">
+ <aside class="control-panel" aria-label="Studio controls">
+  <div class="panelcap"><span><i class="smallbox"></i> WORKFLOW</span><span>01 — 03</span></div>
+  <div class="panel-section"><div class="stephead"><span class="stepnum">01</span><div><h3>Your image</h3><p>Start with a scene or your own photo.</p></div></div>
+   <label class="dropzone" id="dropzone" tabindex="0" for="photoInput"><input type="file" accept="image/png,image/jpeg,image/webp" id="photoInput" hidden /><span class="uploadicon">↥</span><strong>Drop a photo here</strong><span>or click to browse · JPG, PNG, WebP</span><small>Images stay on this device.</small></label>
+   <div class="sample-selector"><span>NOW VIEWING</span><button id="resetSample" type="button">Coastal scene <b>↺</b></button></div>
+  </div>
+  <div class="panel-section"><div class="stephead"><span class="stepnum">02</span><div><h3>Understand the scene</h3><p>Learned depth + semantic regions, when you run AI.</p></div></div>
+   <div class="models"><div><span class="model-icon">◈</span><div><b>Depth Anything</b><small>Relative depth estimation</small></div><span class="model-state" id="depthStatus">READY</span></div><div><span class="model-icon">▦</span><div><b>SegFormer</b><small>Semantic scene parsing</small></div><span class="model-state" id="segmentStatus">READY</span></div></div>
+   <button class="runai" id="analyzeButton" type="button"><span class="spark">✳</span> Run real AI analysis <span class="arrow">→</span></button>
+   <div id="statusBox" class="statusbox" role="status" aria-live="polite"><span class="status-dot"></span><span id="statusText">Illustrative sample loaded. Run AI for a real inference.</span></div>
+  </div>
+  <div class="panel-section bottom-panel"><div class="stephead"><span class="stepnum">03</span><div><h3>Design the translation</h3><p>Control what the final image communicates.</p></div></div>
+   <div class="field"><div class="fieldhead"><label for="mode">Translation approach</label></div><div class="segments" id="mode"><button data-mode="hybrid" class="active" aria-pressed="true">Hybrid</button><button data-mode="semantic" aria-pressed="false">Objects</button><button data-mode="relief" aria-pressed="false">Depth</button></div></div>
+   <div class="field"><div class="fieldhead"><label for="detail">Contour detail</label><output id="detailValue">6 / 10</output></div><input type="range" min="1" max="10" step="1" value="6" id="detail" /><div class="range-labels"><span>Simple</span><span>Detailed</span></div></div>
+   <div class="switchrow"><div><b>Tactile textures</b><small>Differentiate scene regions</small></div><label class="switch"><input type="checkbox" id="textures" checked/><span class="switchtrack"></span><span class="sr-only">Enable tactile textures</span></label></div>
+   <div class="switchrow"><div><b>Numbered guide</b><small>Readable scene callouts</small></div><label class="switch"><input type="checkbox" id="numbers" checked/><span class="switchtrack"></span><span class="sr-only">Enable numbered guide</span></label></div>
+   <button id="simplifyDraft" class="simplify-btn" type="button">✳ Focus on 4 key regions <span>↗</span></button><p class="focus-note">Reduces visual clutter automatically. Specialist tactile validation is still required.</p>
+  </div>
+ </aside>
+ <section class="canvas-panel" aria-label="Tactile scene workbench"><div class="canvas-top"><div class="panelcap-left"><span class="green-dot"></span> LIVE CANVAS <span class="canvasbar" id="canvasbar">/ COASTLINE STUDY</span></div><div class="view-toggles"><button id="compareButton" class="view-active" type="button" aria-pressed="true">◫ Compare</button><button id="artOnlyButton" type="button" aria-pressed="false">□ Vector only</button></div></div>
+  <div class="art-shell"><div class="compare" id="compare"><div class="original-image"><img id="sourceImage" alt="Source scene before tactile translation" src="assets/sample-coast.jpg" /></div><div class="tactile-image" id="renderedArt"><img class="tactile-preview" alt="Pre-generated tactile vector preview of the sample coastal scene" src="assets/demo-tactile-preview.png" /></div><div class="compareline" id="compareLine"><span>⇄</span></div><input id="compareSlider" type="range" aria-label="Original vs tactile comparison position" min="0" max="100" value="50" /></div></div>
+  <div class="canvas-bottom"><div class="canvas-label"><span class="mini-dot"></span><strong id="canvasTitle">Coastline study</strong><span id="inferBadge" class="sample-badge">ILLUSTRATIVE SAMPLE</span></div><span class="mousehint">Move slider to compare <span>⟷</span></span></div>
+  <div class="canvas-actions"><button id="downloadSVG" class="action-primary" type="button">↓ Export tactile SVG</button><button id="downloadPNG" class="action-secondary" type="button">↓ Save preview PNG</button><button id="narrate" class="action-secondary" type="button">◉ Hear the scene</button><button id="downloadReport" class="action-secondary" type="button">↓ Analysis JSON</button><button id="downloadGuide" class="action-secondary" type="button">↓ Human review guide</button><button id="downloadPrint" class="action-secondary" type="button" title="A4 landscape physical-size SVG, specialist review required">↗ A4 Print Lab SVG</button></div>
+ </section>
+ <aside class="insights" aria-label="Scene analysis"><div class="panelcap"><span><i class="smallbox"></i> SCENE INTELLIGENCE</span><span>LIVE</span></div><div class="scene-meta"><small>IMAGE ANALYSIS</small><h3 id="sceneTitle">Coastline study</h3><p id="sceneDesc">A lighthouse above the water. Layered hills, a setting sun and a small sailboat become shapes you can follow.</p></div>
+  <div class="layerhead"><span>DETECTED REGIONS</span><span id="layerCount">7 LAYERS</span></div><div id="regionList" class="regionlist" aria-live="polite"></div>
+  <div class="quality"><div class="quality-head"><span>VISUAL VECTOR DENSITY <button title="Heuristic checks, not a certified accessibility assessment." class="qmark" type="button">?</button></span><strong id="qualityValue">—</strong></div><div class="qualitybar"><div id="qualityFill"></div></div><p id="qualityMessage">Measuring output paths and visual complexity. Not tactile usability.</p></div>
+  <div class="privacy"><span>◈</span><div><b>Privacy by design</b><p>The vision models execute on your device. Uploaded photos never leave the browser; model weights are fetched from Hugging Face.</p></div></div>
+ </aside>
+</div>
+<div class="prototype-warning"><span>ⓘ</span><p><strong>Experimental vector draft — not validated tactile graphics.</strong> Depth is relative, segmentation can misidentify objects, and true tactile production needs specialist review, sizing, and user testing. The Unicode braille legend is a visual representation, not an embossing instruction.</p></div>
+</section>
+<section class="explainer" id="how"><div class="explainer-top"><div><div class="kicker">THE PIPELINE</div><h2>More than a <i>pretty filter.</i></h2></div><p>Two neural networks feed a deterministic geometry engine. Every contour in your output comes from image-derived structure, not decorative effects.</p></div>
+<div class="explainer-cards"><article><span class="article-number">01 / PERCEPTION</span><div class="article-symbol">◐</div><h3>Understand distance.</h3><p>Depth Anything estimates relative spatial depth from a single photograph, directly on your device.</p><div class="article-foot">DEPTH ESTIMATION <span>↗</span></div></article><article><span class="article-number">02 / STRUCTURE</span><div class="article-symbol">▧</div><h3>Separate the world.</h3><p>SegFormer maps semantic regions, allowing the tactile result to retain meaningful boundaries and a navigable legend.</p><div class="article-foot">SEMANTIC SEGMENTATION <span>↗</span></div></article><article><span class="article-number">03 / TRANSLATION</span><div class="article-symbol">〰</div><h3>Design for touch.</h3><p>A custom marching-squares engine extracts vector contours, simplifies lines, adds tactile patterns, and builds SVG.</p><div class="article-foot">VECTOR GEOMETRY <span>↗</span></div></article></div></section>
+<section class="mission" id="impact"><div class="mission-left"><div class="kicker">WHY IT MATTERS</div><h2>Art shouldn't <i>stop at sight.</i></h2><p>Photographs, learning materials, and personal memories are overwhelmingly visual. Tactile diagrams are often expensive and labor-intensive to prepare. Touchscape explores a new first step: let AI generate an editable tactile draft, then let people refine it together.</p><a href="#studio">Create a tactile draft <span>↗</span></a></div><div class="mission-art"><div class="orbit o1"></div><div class="orbit o2"></div><div class="orbit o3"></div><span class="mission-word">FEEL<br/><em>MORE.</em></span><span class="star-big">✳</span></div></section>
+</main>
+<footer><span>✳ TOUCHSCAPE / 2026</span><span>Made for Banana Hacks · A research prototype, not a certified accessible product</span><a href="https://github.com/huggingface/transformers.js" rel="noopener noreferrer" target="_blank">OPEN-SOURCE FOUNDATIONS ↗</a></footer>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script type="module" src="src/app.mjs"></script>
+</body>
+</html>

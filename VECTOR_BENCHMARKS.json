@@ -1,0 +1,37 @@
+{
+  "note": "Local single-thread Node 22, synthetic grids 168×109; vector engine only. NOT model inference, usability, or cross-device performance.",
+  "rows": [
+    {
+      "scene": "horizon",
+      "median_ms": 10.7,
+      "svg_kib": 4.8,
+      "paths": 13,
+      "texture_marks": 44,
+      "svg_sha256": "12b638c0d515846f969e7c2c0ea1d8ed340445ed0b6e6bc80b610a39e714319f"
+    },
+    {
+      "scene": "island",
+      "median_ms": 12,
+      "svg_kib": 7.6,
+      "paths": 15,
+      "texture_marks": 28,
+      "svg_sha256": "ffb4af8f3225cf8148dbeec19c7324a77fd4eba2cc1b9a93061200c5ef34643f"
+    },
+    {
+      "scene": "checker",
+      "median_ms": 115.3,
+      "svg_kib": 82.9,
+      "paths": 935,
+      "texture_marks": 26,
+      "svg_sha256": "b9ac1e5aa67fa3a8f6fe64f5dc352e8076c61eaf7c8c880b9564d34c49f31f7b"
+    },
+    {
+      "scene": "folds",
+      "median_ms": 17.3,
+      "svg_kib": 12.2,
+      "paths": 55,
+      "texture_marks": 45,
+      "svg_sha256": "3f1906fea02ff441058a728af6105ba5e8e454849096531fd9e1a0ad4bade4e9"
+    }
+  ]
+}

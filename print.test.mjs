@@ -1,0 +1,12 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {buildPrintSheet, PRINT_PROFILE} from '../src/print.mjs';
+import {W,H} from '../src/core.mjs';
+const dep=new Float32Array(W*H);for(let y=0;y<H;y++)for(let x=0;x<W;x++)dep[y*W+x]=x/W*.6+y/H*.4;
+const mask=new Uint8Array(W*H);for(let y=12;y<85;y++)for(let x=16;x<111;x++)mask[y*W+x]=255;
+const layer=[{name:'Water & <script>"unsafe"',mask,color:'#007788'}];
+test('A4 dimensions are physically specified in mm',()=>{const result=buildPrintSheet({depth:dep,layers:layer,title:'Coast'});assert.match(result.svg,/width="297mm" height="210mm"/);assert.match(result.svg,/viewBox="0 0 297 210"/);assert.equal(PRINT_PROFILE.outlineMm,.65);});
+test('print SVG is deterministic and has geometry budgets',()=>{const a=buildPrintSheet({depth:dep,layers:layer,title:'Coast'});const b=buildPrintSheet({depth:dep,layers:layer,title:'Coast'});assert.equal(a.svg,b.svg);assert.ok(a.stats.depthPaths<=PRINT_PROFILE.maxDepthPaths);assert.ok(a.stats.semanticPaths<=PRINT_PROFILE.maxSemanticPaths);assert.ok(a.stats.selectedRegions===1);assert.ok(a.svg.includes('REGION KEY'));});
+test('user-supplied title and layer names cannot inject SVG tags',()=>{const a=buildPrintSheet({depth:dep,layers:layer,title:'<img onload="alert(1)" />'});assert.ok(!a.svg.includes('<img onload='));assert.ok(!a.svg.includes('<script>'));assert.ok(a.svg.includes('&lt;script&gt;'));});
+test('empty selections remain honest about missing semantic regions',()=>{const a=buildPrintSheet({depth:dep,layers:layer,selected:[]});assert.equal(a.stats.selectedRegions,0);assert.ok(a.warnings.some(w=>/No semantic regions/.test(w)));});
+test('reject wrong raster sizes',()=>{assert.throws(()=>buildPrintSheet({depth:new Float32Array(5),layers:layer}),/depth raster/);});
